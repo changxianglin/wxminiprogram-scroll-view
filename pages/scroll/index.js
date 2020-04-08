@@ -564,6 +564,8 @@ Page({
 
   },
 
+// 改变 scroll-top 的值来滚动显示，而不是 scroll-view-to
+// 思路、左侧使用 scroll-top、右侧使用 scroll-view-to 滚动、逻辑上关联
   changeMenu(e) {
     console.log(proListToTop);
     // 改变左侧tab栏操作
@@ -577,7 +579,7 @@ Page({
   },
 
   scroll(e) {
-    console.log(e);
+    console.log(e.detail.scrollTop, proListToTop);
     for (let i = 0; i < proListToTop.length; i++) {
       if (e.detail.scrollTop < proListToTop[i] && i !== 0 && e.detail.scrollTop > proListToTop[i - 1]) {
         return this.setDis(i)
@@ -594,6 +596,7 @@ Page({
 
   setDis(i) {
     // 设置左侧menu栏的选中状态
+    console.log('滚动数据', i)
     if (i !== this.data.currentActiveIndex + 1 && !MENU) {
       this.setData({
         currentActiveIndex: i - 1
